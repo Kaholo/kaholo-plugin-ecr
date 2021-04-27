@@ -6,12 +6,12 @@
   "execProgram": "node",
   "exposeRoute": false,
   "imgUrl": "logo.png",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "settings" : [
     {
       "name": "accessKeyId",
       "viewName": "Access key",
-      "type": "vault"
+      "type": "string"
     },
     {
       "name": "secretAccessKey",
@@ -27,7 +27,7 @@
         {
           "name": "accessKeyId",
           "viewName": "Access key",
-          "type": "vault"
+          "type": "string"
         },
         {
           "name": "secretAccessKey",
@@ -35,51 +35,43 @@
           "type": "vault"
         },
         {
-          "name": "REGION",
-          "viewName": "Region",
-          "type": "options",
-          "options": [
-            {
-              "id": "us-east-1",
-              "name": "US East (N. Virginia)"
-            },
-            {
-              "id": "us-west-1",
-              "name": "US West (N. California)"
-            },
-            {
-              "id": "us-west-2",
-              "name": "US West (Oregon)"
-            },
-            {
-              "id": "ap-southeast-1",
-              "name": "Asia Pacific (Singapore)"
-            },
-            {
-              "id": "ap-southeast-2",
-              "name": "Asia Pacific (Sydney)"
-            },
-            {
-              "id": "ap-northeast-1",
-              "name": "Asia Pacific (Tokyo)"
-            },
-            {
-              "id": "eu-west-1",
-              "name": "EU (Ireland)"
-            },
-            {
-              "id": "sa-east-1",
-              "name": "South America (São Paulo)"
-            },
-            {
-              "id": "eu-central-1",
-              "name": "EU (Frankfurt)"
-            }
-          ]
+          "name": "region",
+          "viewName":"Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegions"
         },
         {
           "name": "registryId",
           "viewName": "Registry ID",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "getEcrLogin",
+      "viewName": "Get Authorization Token",
+      "params": [
+        {
+          "name": "accessKeyId",
+          "viewName": "Access key",
+          "type": "string"
+        },
+        {
+          "name": "secretAccessKey",
+          "viewName": "Secret key",
+          "type": "vault"
+        },
+        {
+          "name": "region",
+          "viewName":"Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegions"
+        },
+        {
+          "name": "registryIds",
+          "viewName": "Registry IDs (Array)",
           "type": "string"
         }
       ]
@@ -91,7 +83,7 @@
         {
           "name": "accessKeyId",
           "viewName": "Access key",
-          "type": "vault"
+          "type": "string"
         },
         {
           "name": "secretAccessKey",
@@ -99,47 +91,11 @@
           "type": "vault"
         },
         {
-          "name": "REGION",
-          "viewName": "Region",
-          "type": "options",
-          "options": [
-            {
-              "id": "us-east-1",
-              "name": "US East (N. Virginia)"
-            },
-            {
-              "id": "us-west-1",
-              "name": "US West (N. California)"
-            },
-            {
-              "id": "us-west-2",
-              "name": "US West (Oregon)"
-            },
-            {
-              "id": "ap-southeast-1",
-              "name": "Asia Pacific (Singapore)"
-            },
-            {
-              "id": "ap-southeast-2",
-              "name": "Asia Pacific (Sydney)"
-            },
-            {
-              "id": "ap-northeast-1",
-              "name": "Asia Pacific (Tokyo)"
-            },
-            {
-              "id": "eu-west-1",
-              "name": "EU (Ireland)"
-            },
-            {
-              "id": "sa-east-1",
-              "name": "South America (São Paulo)"
-            },
-            {
-              "id": "eu-central-1",
-              "name": "EU (Frankfurt)"
-            }
-          ]
+          "name": "region",
+          "viewName":"Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegions"
         },
         {
           "name": "registryId",
@@ -153,24 +109,19 @@
         },
         {
           "name": "imageName",
-          "viewName": "Image to push",
-          "type": "string"
-        },
-        {
-          "name": "remoteTag",
-          "viewName": "Pushed image tag",
+          "viewName": "Image",
           "type": "string"
         }
       ]
     },
     {
-      "name": "getEcrLogin",
-      "viewName": "Get Authorization Token",
+      "name": "pullImage",
+      "viewName": "Pull Image From Repo",
       "params": [
         {
           "name": "accessKeyId",
           "viewName": "Access key",
-          "type": "vault"
+          "type": "string"
         },
         {
           "name": "secretAccessKey",
@@ -178,51 +129,25 @@
           "type": "vault"
         },
         {
-          "name": "REGION",
-          "viewName": "Region",
-          "type": "options",
-          "options": [
-            {
-              "id": "us-east-1",
-              "name": "US East (N. Virginia)"
-            },
-            {
-              "id": "us-west-1",
-              "name": "US West (N. California)"
-            },
-            {
-              "id": "us-west-2",
-              "name": "US West (Oregon)"
-            },
-            {
-              "id": "ap-southeast-1",
-              "name": "Asia Pacific (Singapore)"
-            },
-            {
-              "id": "ap-southeast-2",
-              "name": "Asia Pacific (Sydney)"
-            },
-            {
-              "id": "ap-northeast-1",
-              "name": "Asia Pacific (Tokyo)"
-            },
-            {
-              "id": "eu-west-1",
-              "name": "EU (Ireland)"
-            },
-            {
-              "id": "sa-east-1",
-              "name": "South America (São Paulo)"
-            },
-            {
-              "id": "eu-central-1",
-              "name": "EU (Frankfurt)"
-            }
-          ]
+          "name": "region",
+          "viewName":"Region",
+          "type": "autocomplete",
+          "autocompleteType": "function",
+          "functionName": "listRegions"
         },
         {
-          "name": "registryIds",
-          "viewName": "Registry IDs (Array)",
+          "name": "registryId",
+          "viewName": "Registry Id",
+          "type": "string"
+        },
+        {
+          "name": "repoName",
+          "viewName": "Repository Name",
+          "type": "string"
+        },
+        {
+          "name": "imageName",
+          "viewName": "Image",
           "type": "string"
         }
       ]

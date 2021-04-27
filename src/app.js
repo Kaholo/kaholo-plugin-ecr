@@ -1,7 +1,9 @@
 const helpers = require('./helpers');
+const { listRegions } = require('./autocomplete');
+var URL = require('url').URL;
 
-async function getEcrLogin(settings, action){
-    const ecr = helpers.getEcr(settings, action);
+async function getEcrLogin(action, settings){
+    const ecr = helpers.getEcr(action, settings);
     
     let registryIds;
     if(typeof action.params.registryIds == "string"){
@@ -20,7 +22,7 @@ async function getEcrLogin(settings, action){
 
     authToken.authorizationData.forEach(authData=>{
         const [user, password] = Buffer.from(authData.authorizationToken, 'base64').toString('utf-8').split(':');
-        const host = require('url').parse(authData.proxyEndpoint).host;
+        const host = new URL(authData.proxyEndpoint).host;
         
         authData.decodedToken = {host, user, password};
         authData.baseDockerLoginCommand = `docker login --username ${user} --password "${password}" ${host}`
@@ -29,20 +31,17 @@ async function getEcrLogin(settings, action){
     return authToken;
 }
 
-async function pushImgaeToRepo(settings, action){
-    const {repoName, imageName, remoteTag, registryId} = action.params;
+async function runDockerFuncOnECR(action, settings, dockerCmd){
+	const {repoName, registryId} = action.params;
     action.params.registryIds = [registryId];
     
-    const loginData = await getEcrLogin(settings,action);
+    const loginData = await getEcrLogin(action, settings);
     const authData = loginData.authorizationData[0];
-    const hostImageName = `${authData.decodedToken.host}/${repoName}:${remoteTag || "latest"}`
     const loginCommand = `${authData.baseDockerLoginCommand}/${repoName}`
     
     const fullCommand = [
         loginCommand,
-        `docker tag ${imageName} ${hostImageName}`,
-        `docker push ${hostImageName}`,
-        `docker image rm ${hostImageName}`
+        dockerCmd,
     ].join(' && ');
     let hasErr;
     let pushResult;
@@ -63,13 +62,21 @@ async function pushImgaeToRepo(settings, action){
     return [fullCommand.replace(authData.decodedToken.password, '<DOCKER_PASS>'), pushResult, logoutRes].join('\n');
 }
 
-async function describeRepositories(settings, action){
+async function pullImage(action, settings){
+    return runDockerFuncOnECR(action, settings, `docker pull ${action.params.imageName}`);
+}
+
+async function pushImgaeToRepo(action, settings){
+    return runDockerFuncOnECR(action, settings, `docker push ${action.params.imageName}`);
+}
+
+async function describeRepositories(action, settings){
     const registryId = action.params.registryId;
 
-    const ecr = helpers.getEcr(settings, action);
+    const ecr = helpers.getEcr(action, settings);
 
     const repositories =  await new Promise((resolve,reject)=>{
-        ecr.describeRepositories({registryId},helpers.operationCallback(resolve,reject))
+        ecr.describeRepositories({registryId}, helpers.operationCallback(resolve,reject))
     });
 
     return repositories;
@@ -78,5 +85,8 @@ async function describeRepositories(settings, action){
 module.exports = {
     describeRepositories,
     pushImgaeToRepo,
-    getEcrLogin
+    getEcrLogin, 
+    pullImage,
+    // autocomplete
+    listRegions
 };
