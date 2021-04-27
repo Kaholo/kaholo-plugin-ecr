@@ -41,7 +41,7 @@ The method is doing the following:
 3. Region - Select a region from the appeard list.
 4. Registry ID - The AWS account ID associated with the registry that contains the repositories.
 5. Repository Name - The name of the repository inside the registry
-6. Image - The name and tag of the image you wish to push.
+6. Image - The host, name and tag of the image you wish to push. For example *<account_id>.dkr.ecr.<region>.amazonaws.com/<repo_name>:<Tag>* 
 
 ## Method: Pull Image From Repo
 This method is a wrapper for docker-cli. And therefore the docker-cli must be preinstalled on the agent.
@@ -57,4 +57,4 @@ The method is doing the following:
 3. Region - Select a region from the appeard list.
 4. Registry ID - The AWS account ID associated with the registry that contains the repositories.
 5. Repository Name - The name of the repository inside the registry
-6. Image - The name and tag of the image you wish to pull.
+6. Image - The host, name and tag of the image you wish to push. For example *<account_id>.dkr.ecr.<region>.amazonaws.com/<repo_name>:<Tag>* 
