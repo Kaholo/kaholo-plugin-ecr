@@ -1,6 +1,6 @@
 {
   "name": "kaholo-plugin-ecr",
-  "version": "1.0.0",
+  "version": "2.0.2",
   "description": "AWS ECR plugin for Kaholo",
   "main": "app.js",
   "scripts": {
