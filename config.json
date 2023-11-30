@@ -1,13 +1,27 @@
 {
   "name": "AWS-ECR",
-  "description": "Amazon AWS ECR",
+  "viewName": "AWS ECR",
+  "description": "Amazon Elastic Container Registry - managed cloud container registry",
   "type": "executer",
   "main": "app.js",
   "execProgram": "node",
   "exposeRoute": false,
   "imgUrl": "logo.png",
   "version": "2.0.2",
-  "category": ["CLOUD", "COMPUTE"],
+  "category": ["Containers"],
+  "keywords": [
+    "aws",
+    "ecr",
+    "registry",
+    "elastic",
+    "container",
+    "image",
+    "docker",
+    "push",
+    "pull",
+    "repository",
+    "cloud"
+  ],
   "settings" : [
     {
       "name": "accessKeyId",
