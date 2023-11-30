@@ -25,13 +25,18 @@
   "settings" : [
     {
       "name": "accessKeyId",
-      "viewName": "Access key",
+      "viewName": "Default AWS Access key",
       "type": "vault"
     },
     {
       "name": "secretAccessKey",
-      "viewName": "Secret key",
+      "viewName": "Default AWS Secret key",
       "type": "vault"
+    },
+    {
+      "name": "region",
+      "viewName": "Default AWS Region",
+      "type": "string"
     }
   ],
   "methods": [
