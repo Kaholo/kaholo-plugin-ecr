@@ -92,7 +92,7 @@
       ]
     },
     {
-      "name": "pushImgaeToRepo",
+      "name": "pushImageToRepo",
       "viewName": "Push image to repo",
       "params": [
         {
@@ -115,11 +115,6 @@
         {
           "name": "registryId",
           "viewName": "Registry Id",
-          "type": "string"
-        },
-        {
-          "name": "repoName",
-          "viewName": "Repository Name",
           "type": "string"
         },
         {
@@ -153,11 +148,6 @@
         {
           "name": "registryId",
           "viewName": "Registry Id",
-          "type": "string"
-        },
-        {
-          "name": "repoName",
-          "viewName": "Repository Name",
           "type": "string"
         },
         {
