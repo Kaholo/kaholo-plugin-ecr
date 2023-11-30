@@ -113,11 +113,6 @@
           "functionName": "listRegions"
         },
         {
-          "name": "registryId",
-          "viewName": "Registry Id",
-          "type": "string"
-        },
-        {
           "name": "imageName",
           "viewName": "Image",
           "type": "string"
@@ -144,11 +139,6 @@
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listRegions"
-        },
-        {
-          "name": "registryId",
-          "viewName": "Registry Id",
-          "type": "string"
         },
         {
           "name": "imageName",

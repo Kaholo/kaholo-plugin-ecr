@@ -32,7 +32,7 @@ async function getEcrLogin(action, settings){
 }
 
 async function runDockerFuncOnECR(action, settings, dockerCmd){
-	const {registryId} = action.params;
+	const registryId = helpers.getRegistryIdFromImageName(action.params.imageName);
     action.params.registryIds = [registryId];
     
     const loginData = await getEcrLogin(action, settings);
