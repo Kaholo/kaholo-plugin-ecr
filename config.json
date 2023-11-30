@@ -42,21 +42,21 @@
   "methods": [
     {
       "name": "describeRepositories",
-      "viewName": "Describe Repositories",
+      "viewName": "Describe ECR Repositories",
       "params": [
         {
           "name": "accessKeyId",
-          "viewName": "Access key",
+          "viewName": "AWS Access Key",
           "type": "vault"
         },
         {
           "name": "secretAccessKey",
-          "viewName": "Secret key",
+          "viewName": "AWS Secret Key",
           "type": "vault"
         },
         {
           "name": "region",
-          "viewName":"Region",
+          "viewName":"AWS Region",
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listRegions"
@@ -64,6 +64,7 @@
         {
           "name": "registryId",
           "viewName": "Registry ID",
+          "description": "The 12-digit registryId or the full string for the ECR repository or any image within",
           "type": "string"
         }
       ]
@@ -98,21 +99,21 @@
     },
     {
       "name": "pushImageToRepo",
-      "viewName": "Push image to repo",
+      "viewName": "Push Image to ECR",
       "params": [
         {
           "name": "accessKeyId",
-          "viewName": "Access key",
+          "viewName": "AWS Access Key",
           "type": "vault"
         },
         {
           "name": "secretAccessKey",
-          "viewName": "Secret key",
+          "viewName": "AWS Secret Key",
           "type": "vault"
         },
         {
           "name": "region",
-          "viewName":"Region",
+          "viewName":"AWS Region",
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listRegions"
@@ -120,27 +121,29 @@
         {
           "name": "imageName",
           "viewName": "Image",
+          "description": "Local image to push - must be tagged registry/repository:tag where registry is an ECR",
+          "placeholder": "780631212317.dkr.ecr.eu-central-1.amazonaws.com/appliciotomus:latest",
           "type": "string"
         }
       ]
     },
     {
       "name": "pullImage",
-      "viewName": "Pull Image From Repo",
+      "viewName": "Pull Image from ECR",
       "params": [
         {
           "name": "accessKeyId",
-          "viewName": "Access key",
+          "viewName": "AWS Access Key",
           "type": "vault"
         },
         {
           "name": "secretAccessKey",
-          "viewName": "Secret key",
+          "viewName": "AWS Secret Key",
           "type": "vault"
         },
         {
           "name": "region",
-          "viewName":"Region",
+          "viewName":"AWS Region",
           "type": "autocomplete",
           "autocompleteType": "function",
           "functionName": "listRegions"
@@ -148,6 +151,8 @@
         {
           "name": "imageName",
           "viewName": "Image",
+          "description": "ECR image to pull - use registry/repository:tag where registry is an ECR",
+          "placeholder": "780631212317.dkr.ecr.eu-central-1.amazonaws.com/appliciotomus:latest",
           "type": "string"
         }
       ]
