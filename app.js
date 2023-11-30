@@ -71,7 +71,7 @@ async function pushImageToRepo(action, settings){
 }
 
 async function describeRepositories(action, settings){
-    const registryId = action.params.registryId;
+    const registryId = action.params.registryId.substring(0,12);
 
     const ecr = helpers.getEcr(action, settings);
 
