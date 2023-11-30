@@ -53,10 +53,20 @@ function handleAutoComplete(param) {
     return param;
 }
 
+function getRegistryIdFromImageName(imageName) {
+    // example: 780631210217.dkr.ecr.eu-central-1.amazonaws.com/builderjammy
+    const registryID = imageName.match('[0-9]{12}')?.toString();
+    if (registryID) {
+        return registryID;
+    }
+    throw new Error("Image name does not contain a 12-digit ECR registryId - please use the Docker plugin instead.");
+}
+
 module.exports = {
     getEcr,
     getEc2,
     getLightsail,
     executeCmd,
-    operationCallback
+    operationCallback,
+    getRegistryIdFromImageName
 };

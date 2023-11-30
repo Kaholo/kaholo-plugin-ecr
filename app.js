@@ -32,12 +32,12 @@ async function getEcrLogin(action, settings){
 }
 
 async function runDockerFuncOnECR(action, settings, dockerCmd){
-	const {repoName, registryId} = action.params;
+	const registryId = helpers.getRegistryIdFromImageName(action.params.imageName);
     action.params.registryIds = [registryId];
     
     const loginData = await getEcrLogin(action, settings);
     const authData = loginData.authorizationData[0];
-    const loginCommand = `${authData.baseDockerLoginCommand}/${repoName}`
+    const loginCommand = `${authData.baseDockerLoginCommand}`
     
     const fullCommand = [
         loginCommand,
@@ -66,12 +66,12 @@ async function pullImage(action, settings){
     return runDockerFuncOnECR(action, settings, `docker pull ${action.params.imageName}`);
 }
 
-async function pushImgaeToRepo(action, settings){
+async function pushImageToRepo(action, settings){
     return runDockerFuncOnECR(action, settings, `docker push ${action.params.imageName}`);
 }
 
 async function describeRepositories(action, settings){
-    const registryId = action.params.registryId;
+    const registryId = action.params.registryId.substring(0,12);
 
     const ecr = helpers.getEcr(action, settings);
 
@@ -84,7 +84,7 @@ async function describeRepositories(action, settings){
 
 module.exports = {
     describeRepositories,
-    pushImgaeToRepo,
+    pushImageToRepo,
     getEcrLogin, 
     pullImage,
     // autocomplete
